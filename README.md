@@ -25,24 +25,24 @@
 - **Telegram Web App API** - Интеграция с Telegram
 
 ## Структура проекта
-mini-app/
-├── backend/
-│ ├── TubeAppBackend/
-│ │ ├── Controllers/ # API контроллеры
-│ │ ├── Models/ # Модели данных
-│ │ ├── Services/ # Бизнес-логика
-│ │ ├── Data/ # JSON файлы с данными
-│ │ └── Program.cs # Точка входа
-│ └── README.md
-├── frontend/
-│ ├── public/ # Статические файлы
-│ ├── src/
-│ │ ├── components/ # React компоненты
-│ │ ├── services/ # API сервисы
-│ │ ├── context/ # Контексты React
-│ │ └── App.js # Основной компонент
-│ └── package.json
-└── README.md
+
+**backend/**
+- Controllers/ - API контроллеры
+- Models/ - Модели данных
+- Services/ - Бизнес-логика
+- Data/ - JSON файлы с данными
+- Program.cs - Точка входа
+
+**frontend/**
+- public/ - Статические файлы
+- components/ - React компоненты
+- services/ - API сервисы
+- hooks/ - Кастомные React хуки
+- pages/ - Страницы приложения 
+- App.js - Основной компонент
+
+**bot/**
+- server.js - Логика Telegram бота
 
 ## Установка
 
