@@ -49,7 +49,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/
+git clone https://github.com/tyanpien/telegram-mini-app
 cd mini-app
 ```
 
