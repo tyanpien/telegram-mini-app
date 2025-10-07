@@ -1,0 +1,24 @@
+{
+  "ArrayOfTypeEl": [
+    {
+      "IDType": "a58d54b6-25ea-4818-afc9-1faa8c630d9a",
+      "Type": "Бесшовные холоднодеформированные",
+      "IDParentType": ""
+    },
+    {
+      "IDType": "d21de9df-f3dd-442f-8b9f-89d8f1865698",
+      "Type": "Прямошовные",
+      "IDParentType": ""
+    },
+    {
+      "IDType": "4ae51348-d619-4bf2-a35f-1c6931b68bf1",
+      "Type": "Холоднокатаные",
+      "IDParentType": ""
+    },
+    {
+      "IDType": "403389a6-3f81-4cd0-bf1d-e43fe6adaa48",
+      "Type": "Горячекатаные",
+      "IDParentType": ""
+    }
+  ]
+}

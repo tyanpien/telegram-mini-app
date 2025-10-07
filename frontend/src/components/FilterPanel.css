@@ -1,0 +1,45 @@
+.filter-panel {
+  background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--tg-theme-section-bg-color, #e9ecef);
+}
+
+.filter-group {
+  margin-bottom: 12px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--tg-theme-section-bg-color, #dee2e6);
+  border-radius: 8px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+  font-size: 14px;
+}
+
+.clear-filters {
+  width: 100%;
+  padding: 10px;
+  background: var(--tg-theme-section-bg-color, #e9ecef);
+  color: var(--tg-theme-text-color, #000000);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.clear-filters:hover {
+  opacity: 0.8;
+}

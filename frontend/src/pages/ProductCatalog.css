@@ -1,0 +1,17 @@
+.product-catalog {
+  max-width: 100%;
+}
+
+.product-catalog h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--tg-theme-text-color, #000000);
+  text-align: center;
+}
+
+.products-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -1,0 +1,6 @@
+@TubeAppBackend_HostAddress = http://localhost:5143
+
+GET {{TubeAppBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
