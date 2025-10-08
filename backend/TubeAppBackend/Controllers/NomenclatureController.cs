@@ -6,6 +6,7 @@ namespace TubeAppBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class NomenclatureController : ControllerBase
     {
         private readonly INomenclatureService _nomenclatureService;
@@ -42,6 +43,25 @@ namespace TubeAppBackend.Controllers
         {
             var result = await _nomenclatureService.SearchNomenclatureAsync(term);
             return Ok(result);
+        }
+        [HttpGet("debug")]
+        public IActionResult Debug()
+        {
+            var dataPath = "C:/Users/nasta/Desktop/mini-app/backend/TubeAppBackend/Data/nomenclature.json";
+            var fileExists = System.IO.File.Exists(dataPath);
+
+            string fileContent = "FILE NOT FOUND";
+            if (fileExists)
+            {
+                fileContent = System.IO.File.ReadAllText(dataPath);
+            }
+
+            return Ok(new {
+                FileExists = fileExists,
+                FilePath = dataPath,
+                FileContent = fileContent,
+                FileLength = fileExists ? new FileInfo(dataPath).Length : 0
+            });
         }
     }
 }

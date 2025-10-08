@@ -1,5 +1,6 @@
 .app {
   max-width: 100%;
+  background: white;
   margin: 0 auto;
   padding: 16px;
   min-height: 100vh;
@@ -7,12 +8,12 @@
 }
 
 .telegram-theme {
-  background: var(--tg-theme-bg-color, #ffffff);
-  color: var(--tg-theme-text-color, #000000);
+  background: white;
+  color: black;
 }
 
 .telegram-theme .product-card {
-  background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+  background: white;
   border: 1px solid var(--tg-theme-section-border-color, #e9ecef);
 }
 
@@ -43,12 +44,6 @@
   gap: 5px;
   font-size: 14px;
   color: #666;
-}
-
-.cart-summary {
-  text-align: center;
-  font-weight: bold;
-  color: #2735af;
 }
 
 .products-grid {
@@ -84,8 +79,8 @@
 
 .add-to-cart-btn {
   width: 100%;
-  background: #1b4a7cff;
-  color: white;
+  background: #d66b14d7 !important;
+  color: white !important;
   border: none;
   padding: 12px;
   border-radius: 8px;
@@ -97,6 +92,14 @@
 
 .add-to-cart-btn:hover {
   opacity: 0.9;
+}
+
+.clear-filters-btn {
+  background: #d66b14d7;
+  color: white;
+  padding: 4px 7px;
+  font-size: 14px;
+  border-radius: 5px;
 }
 
 .cart-items {
@@ -215,7 +218,7 @@
 }
 
 .continue-shopping-btn {
-  background: #007bff;
+  background: #d66b14d7 !important;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -260,7 +263,7 @@
 }
 
 .item-price {
-  color: #28a745 !important;
+  color: #d66b14d7 !important;
   font-weight: bold;
   font-size: 1rem !important;
 }
@@ -283,20 +286,20 @@
 .quantity-controls button {
   width: 40px;
   height: 40px;
-  border: 2px solid #007bff;
+  border: 2px solid #d66b14d7 !important;
   background: white;
   border-radius: 10px;
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #007bff;
+  color: #d66b14d7;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .quantity-controls button:hover {
-  background: #007bff;
+  background: #d66b14d7;
   color: white;
 }
 

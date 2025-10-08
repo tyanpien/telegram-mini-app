@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://e66e79c4e4483e0b157a0685a6664a08.serveo.net/api';
+const API_BASE_URL = 'https://a69bd962ae5c34.lhr.life/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

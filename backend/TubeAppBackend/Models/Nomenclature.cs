@@ -16,7 +16,7 @@ namespace TubeAppBackend.Models
         public double Diameter { get; set; }
         public double ProfileSize2 { get; set; }
         public double PipeWallThickness { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public int Status { get; set; }
         public double Koef { get; set; }
     }
 }

@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
       inline_keyboard: [[
         {
           text: 'Открыть каталог',
-          web_app: { url: 'https://bf64d7981befb0e8c049b83b93872c1c.serveo.net' }
+          web_app: { url: 'https://fb0fcc3e2cd4aa.lhr.life' }
         }
       ]]
     }
@@ -37,9 +37,6 @@ app.post('/webhook', async (req, res) => {
 
   try {
     const { user, cart, total } = req.body;
-
-    setTimeout(() => recentOrders.delete(orderKey), 10000);
-
     let orderText = `НОВЫЙ ЗАКАЗ!\n\n`;
 
     if (user) {
@@ -62,16 +59,16 @@ app.post('/webhook', async (req, res) => {
 
         orderText += `${index + 1}. ${item.name || 'Товар'}\n`;
         orderText += `Марка: ${item.steelGrade || '-'}\n`;
-        orderText += `Диаметр: ⌀${item.diameter || '?'}мм\n`;
+        orderText += `Диаметр: ${item.diameter || '?'}мм\n`;
         orderText += `Толщина: ${item.thickness || item.wallThickness || '?'}мм\n`;
-        orderText += `Количество: ${quantity} т\n`;
+        orderText += `Количество: ${quantity} т\n\n`;
       });
     } else {
       calculatedTotal = Number(total) || 0;
       orderText += `Корзина пуста\n\n`;
     }
 
-    orderText += `ОБЩАЯ СУММА: ${calculatedTotal.toLocaleString('ru-RU')} ₽\n`;
+    orderText += `ОБЩАЯ СУММА: ${calculatedTotal.toLocaleString('ru-RU')} ₽\n\n`;
     orderText += `${new Date().toLocaleString('ru-RU')}`;
 
 
@@ -79,7 +76,7 @@ app.post('/webhook', async (req, res) => {
 
     res.json({
       success: true,
-      message: `Заказ на ${calculatedTotal.toLocaleString('ru-RU')}₽ принят!`
+      message: `Заказ на ${calculatedTotal.toLocaleString('ru-RU')} ₽ принят!`
     });
 
   } catch (error) {

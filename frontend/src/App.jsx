@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { productService } from './services/api';
-import FilterPanel from './components/FilterPanel'; // Добавляем импорт
+import FilterPanel from './components/FilterPanel';
 import './App.css';
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
     wallThickness: '',
     manufacturer: ''
   });
+  const BACKEND_BASE_URL = 'https://b1b4d0b4249cd8.lhr.life';
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
@@ -175,8 +176,9 @@ function App() {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   }, [cart]);
 
-  const handleCheckout = useCallback(() => {
+  const handleCheckout = useCallback(async () => {
     if (sending || cart.length === 0) return;
+
     setSending(true);
 
     const orderData = {
@@ -196,32 +198,44 @@ function App() {
       timestamp: new Date().toISOString()
     };
 
-    fetch('https://45eb82878dc074e549ae8c7ff4174ee2.serveo.net/webhook', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData)
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          window.Telegram?.WebApp?.showPopup?.({
-            title: 'Заказ отправлен!',
-            message: `Ваш заказ на ${getTotalPrice().toLocaleString('ru-RU')} ₽ успешно оформлен.`,
-            buttons: [{ type: 'ok' }]
-          });
+    try {
+      const response = await fetch(`https://b0c76d971f1adb.lhr.life/webhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
 
-          setCart([]);
-          setShowCartModal(false);
-          window.Telegram?.WebApp?.MainButton?.hide();
-        } else {
-          alert('Ошибка оформления заказа');
-        }
-      })
-      .catch(err => {
-        console.error('Ошибка отправки заказа:', err);
-        alert('Ошибка соединения с сервером');
-      })
-      .finally(() => setSending(false));
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Ошибка сервера');
+      }
+
+      if (data.success) {
+        window.Telegram?.WebApp?.showPopup?.({
+          title: 'Заказ принят!',
+          message: `Ваш заказ на ${getTotalPrice().toLocaleString('ru-RU')} ₽ успешно оформлен.`,
+          buttons: [{ type: 'ok' }]
+        });
+
+        setCart([]);
+        setShowCartModal(false);
+        window.Telegram?.WebApp?.MainButton?.hide();
+      } else {
+        throw new Error(data.message || 'Ошибка оформления заказа');
+      }
+
+    } catch (err) {
+      console.error('Ошибка отправки заказа:', err);
+
+      window.Telegram?.WebApp?.showPopup?.({
+        title: 'Ошибка',
+        message: err.message || 'Ошибка соединения с сервером',
+        buttons: [{ type: 'ok' }]
+      });
+    } finally {
+      setSending(false);
+    }
   }, [cart, sending, user, getTotalPrice]);
 
   useEffect(() => {
@@ -261,7 +275,7 @@ function App() {
           <button
             onClick={() => setShowCartModal(true)}
             style={{
-              background: '#1b4a7cff',
+              background: '#d66b14d7',
               color: 'white',
               border: 'none',
               padding: '8px 15px',

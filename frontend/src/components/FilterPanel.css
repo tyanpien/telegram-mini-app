@@ -1,5 +1,5 @@
 .filter-panel {
-  background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+  background: white;
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 16px;
@@ -15,7 +15,7 @@
   margin-bottom: 6px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--tg-theme-text-color, #000000);
+  color: black;
 }
 
 .filter-group select {
@@ -23,15 +23,15 @@
   padding: 10px;
   border: 1px solid var(--tg-theme-section-bg-color, #dee2e6);
   border-radius: 8px;
-  background: var(--tg-theme-bg-color, #ffffff);
-  color: var(--tg-theme-text-color, #000000);
+  background: white;
+  color: black;
   font-size: 14px;
 }
 
 .clear-filters {
   width: 100%;
   padding: 10px;
-  background: var(--tg-theme-section-bg-color, #e9ecef);
+  background: #d66b14d7 !important;
   color: var(--tg-theme-text-color, #000000);
   border: none;
   border-radius: 8px;
