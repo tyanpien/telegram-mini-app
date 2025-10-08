@@ -94,6 +94,11 @@
   opacity: 0.9;
 }
 
+.loading {
+  text-align: center;
+  align-items: center;
+}
+
 .clear-filters-btn {
   background: #d66b14d7;
   color: white;

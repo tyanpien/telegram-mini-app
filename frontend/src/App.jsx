@@ -18,7 +18,6 @@ function App() {
     wallThickness: '',
     manufacturer: ''
   });
-  const BACKEND_BASE_URL = 'https://b1b4d0b4249cd8.lhr.life';
 
   useEffect(() => {
     if (window.Telegram?.WebApp) {
@@ -96,67 +95,62 @@ function App() {
   }, [cart]);
 
   const addToCart = async (product) => {
-  try {
+    try {
+      // получаем цену
+      let priceData;
+      try {
+        priceData = await productService.getCurrentPrice(product.id);
+      } catch (priceError) {
+        console.error("Ошибка получения цены");
+        priceData = { PriceT: 25000 };
+      }
 
-    // получаем актуальную цену и остатки
-    const [priceData, stockData] = await Promise.all([
-      productService.getCurrentPrice(product.id),
-      productService.getStock(product.id)
-    ]);
+      // получаем остатки
+      let stockData;
+      try {
+        stockData = await productService.getStock(product.id);
+      } catch (stockError) {
+        console.error("Ошибка получения остатков");
+        stockData = [{ InStockT: 100 }];
+      }
 
-    // ищем цену в разных возможных полях
-    const price =
-      priceData?.priceValue ||
-      priceData?.PriceValue ||
-      priceData?.price ||
-      priceData?.PriceT ||
-      priceData?.priceT ||
-      priceData?.PriceM ||
-      priceData?.priceM ||
-      1000;
+      // обработка цены
+      const finalPrice = priceData?.PriceT > 0 ? priceData.PriceT : 25000;
 
-    // ищем остатки в разных возможных полях
-    const totalStock = stockData?.reduce((sum, item) =>
-      sum + (item.inStockT || item.InStockT || item.quantity || item.Quantity || 1000), 0) || 1000;
+      // обработка остатков
+      const finalStock = stockData?.[0]?.InStockT || 100;
 
-    // проверяем доступность (цена должна быть > 0 и остатки > 0)
-    if (price <= 0) {
-      alert('Цена не указана для этого товара');
-      return;
-    }
-
-    if (totalStock <= 0) {
-      alert('Товара нет в наличии');
-      return;
-    }
-
-    const existingItem = cart.find(item => item.id === product.id);
-    if (existingItem) {
-      setCart(cart.map(item =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      ));
-    } else {
-      setCart([...cart, {
-        ...product,
-        price: price,
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        steelGrade: product.steelGrade,
+        diameter: product.diameter,
+        wallThickness: product.pipeWallThickness,
+        manufacturer: product.manufacturer,
+        price: finalPrice,
+        stock: finalStock,
         quantity: 1,
-        unit: 'ton'
-      }]);
-    }
+        unit: 'ton',
+        timestamp: Date.now()
+      };
 
-    if (isTelegram) {
-      window.Telegram.WebApp.showPopup({
-        title: 'Товар добавлен',
-        message: `${product.name}\nЦена: ${price.toLocaleString('ru-RU')} ₽/т`,
-        buttons: [{ type: 'ok' }]
+      setCart(prevCart => {
+        const existingItemIndex = prevCart.findIndex(item => item.id === product.id);
+
+        if (existingItemIndex >= 0) {
+          const updatedCart = [...prevCart];
+          updatedCart[existingItemIndex].quantity += 1;
+          return updatedCart;
+        } else {
+          const newCart = [...prevCart, cartItem];
+          return newCart;
+        }
       });
-    }
 
-  } catch (error) {
-    console.error('Error adding to cart:', error);
-    alert('Ошибка при добавлении товара в корзину');
-  }
-};
+    } catch (error) {
+      console.error("Ошибка в addToCart:", error);
+    }
+  };
 
   const removeFromCart = (productId) => {
     setCart(cart.filter(item => item.id !== productId));
@@ -199,7 +193,7 @@ function App() {
     };
 
     try {
-      const response = await fetch(`https://b0c76d971f1adb.lhr.life/webhook`, {
+      const response = await fetch(`https://2375a653d1b0e6.lhr.life/webhook`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderData)

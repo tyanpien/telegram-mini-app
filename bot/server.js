@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
       inline_keyboard: [[
         {
           text: 'Открыть каталог',
-          web_app: { url: 'https://fb0fcc3e2cd4aa.lhr.life' }
+          web_app: { url: 'https://7572e099167134.lhr.life' }
         }
       ]]
     }
